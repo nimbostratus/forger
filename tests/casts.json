@@ -1,0 +1,17 @@
+{
+    "django-1.5": {
+        "url": "https://github.com/nimbostratus/nimbostratus.git",
+        "description": "Django 1.5 cast with optional addons",
+        "type": "git"
+    },
+    "flask-nimbostratus": {
+        "url": "https://casts.nimbostratus.de/my_flask.zip",
+        "description": "Nimbostratus flask layout",
+        "type": "zip"
+    },
+    "flask": {
+        "url": "https://github.com/nimbostratus/nimbostratus.git",
+        "description": "Flask Cast",
+        "type": "git"
+    }
+}
