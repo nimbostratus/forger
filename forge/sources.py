@@ -1,7 +1,7 @@
 import json
 import requests
 import logging
-from forge.casts import Cast
+from casts import Cast
 
 try:
     from urlparse import urlparse
@@ -41,9 +41,15 @@ class FilesystemSource(Source):
 
 class HttpSource(Source):
     def search(self, expression):
-        request = requests.get(
-            self.location.geturl() + '/search',
-            params={"expression": expression})
+        try:
+            request = requests.get(
+                self.location.geturl() + '/search',
+                params={"expression": expression})
+        except requests.exceptions.ConnectionError:
+            logging.warning('could not retrieve source %(source)s (not reachable).' % {
+                'source': self.location.geturl(),
+            })
+            return {}
         try:
             return request.json()
         except ValueError:
