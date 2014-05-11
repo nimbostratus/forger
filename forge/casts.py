@@ -1,8 +1,15 @@
 import os
+from StringIO import StringIO
+import zipfile
+import requests
 import tempfile
 
+
 class Cast(object):
-    def __init__(self, **kwargs):
+    def __init__(self, name, **kwargs):
+        self.name = name
+        self.type = None
+        self.url = ''
         self.__dict__.update(kwargs)
 
     def clone(self, directory):
@@ -37,8 +44,14 @@ class ClonedCast(object):
     def process_choices(self):
         pass
 
+
 class ZipClonedCast(ClonedCast):
-    pass
+    def do_clone(self):
+        r = requests.get(self.location)
+        data = StringIO(r.content)
+        with zipfile.ZipFile(data, "r") as archive:
+            archive.extractall(self.temp_dir)
+
 
 class GitClonedCast(ClonedCast):
     def do_clone(self):

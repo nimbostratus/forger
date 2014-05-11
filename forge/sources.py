@@ -60,9 +60,12 @@ class HttpSource(Source):
         return {}
 
     def get(self, name):
-        request = requests.get(
-            self.location.geturl() + '/get',
-            params={"name": name})
+        try:
+            request = requests.get(
+                self.location.geturl() + '/get',
+                params={"name": name})
+        except requests.exceptions.ConnectionError:
+            return {}
         try:
             return request.json()
         except ValueError:
@@ -90,5 +93,5 @@ class SourceRegistry(object):
         result = {}
         for source in self.sources:
             result.update(source.get(name))
-        return Cast(**result)
+        return Cast(name, **result)
 

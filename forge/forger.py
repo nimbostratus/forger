@@ -2,6 +2,7 @@
 from __future__ import print_function
 import argparse
 from sources import SourceRegistry
+import sys
 
 
 class Forger(object):
@@ -25,6 +26,13 @@ class Forger(object):
         cast = self.sources.get_cast(args.name)
         cast.clone(args.directory)
 
+    def do_show(self, args):
+        cast = self.sources.get_cast(args.name)
+        print("Type:        ", cast.type)
+        print("Name:        ", cast.name)
+        print("Description: ", cast.description)
+        print("Url:         ", cast.url)
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="forge a project")
     subparsers = parser.add_subparsers(help="command mode", dest="subcommand")
@@ -32,8 +40,14 @@ if __name__ == '__main__':
     search = subparsers.add_parser('search', help="search casts")
     search.add_argument('expression', help="search expression")
 
-    build = subparsers.add_parser('clone', help='clone a cast')
-    build.add_argument('name', help="the cast to clone")
-    build.add_argument('--directory', help="destination directory", default=".")
+    clone = subparsers.add_parser('clone', help='clone a cast')
+    clone.add_argument('name', help="the cast to clone")
+    clone.add_argument('--directory', help="destination directory", default=".")
 
+    show = subparsers.add_parser('show', help='show a cast')
+    show.add_argument('name', help="the cast to show")
+
+    if len(sys.argv) < 2:
+        parser.print_help()
+        sys.exit(1)
     Forger().run(parser.parse_args())

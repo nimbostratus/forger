@@ -5,7 +5,7 @@
         "type": "git"
     },
     "flask-nimbostratus": {
-        "url": "https://casts.nimbostratus.de/my_flask.zip",
+        "url": "https://github.com/nimbostratus/nimbostratus/archive/master.zip",
         "description": "Nimbostratus flask layout",
         "type": "zip"
     },
