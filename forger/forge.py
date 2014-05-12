@@ -2,6 +2,7 @@
 from __future__ import print_function
 import argparse
 import sys
+import logging
 from forger.sources import SourceRegistry
 
 
@@ -13,6 +14,8 @@ class Forger(object):
         self.sources.add('http://casts.nimbostratus.de')
 
     def run(self, args):
+        if not args.verbose:
+            logging.basicConfig(level=logging.ERROR)
         getattr(self, "do_" + args.subcommand)(args)
 
     def do_search(self, args):
@@ -35,6 +38,7 @@ class Forger(object):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="forge a project")
+    parser.add_argument('-v', '--verbose', help="verbose", action="store_true")
     subparsers = parser.add_subparsers(help="command mode", dest="subcommand")
 
     search = subparsers.add_parser('search', help="search casts")
