@@ -46,11 +46,12 @@ if __name__ == '__main__':
 
     clone = subparsers.add_parser('clone', help='clone a cast')
     clone.add_argument('name', help="the cast to clone")
-    clone.add_argument('--directory', help="destination directory", default=".")
+    clone.add_argument('directory', help="destination directory")
 
     show = subparsers.add_parser('show', help='show a cast')
     show.add_argument('name', help="the cast to show")
 
+    # don't show the usual argparse error if no param is given
     if len(sys.argv) < 2:
         parser.print_help()
         sys.exit(1)
