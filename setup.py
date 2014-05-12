@@ -1,17 +1,18 @@
 from setuptools import setup
 
 setup(
-    name="forge",
+    name="forger",
     version="0.1-dev",
     url="http://casts.nimbostratus.de",
     license="BSD",
     author="Sven Broeckling",
     author_email="sven@nimbostratus.de",
-    scripts=['forge/forge.py'],
+    scripts=['forger/forge.py'],
     description="",
     classifiers=[
 
     ],
-    packages=['forge'],
-    install_requires=['Jinja2', 'requests']
+    packages=['forger'],
+    install_requires=['Jinja2', 'requests'],
+    zip_safe=False
 )

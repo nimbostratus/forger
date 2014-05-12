@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 from __future__ import print_function
 import argparse
-from sources import SourceRegistry
 import sys
+from forger.sources import SourceRegistry
 
 
 class Forger(object):
